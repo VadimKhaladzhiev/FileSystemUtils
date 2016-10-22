@@ -5,6 +5,7 @@ import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -43,33 +44,50 @@ public class FileSystemUtilsSpec {
     }
 
     @Test
-    public void whenPathNotExistsThenRuntimeException(){
+    public void whenPathNotExistsThenRuntimeException() throws Exception{
         fileSystemUtils = new FileSystemUtils(null);
-        exception.expect(RuntimeException.class);
+        exception.expect(Exception.class);
         fileSystemUtils.dir();
     }
 
     @Test
-    public void whenFolderNotExistsThenRuntimeException(){
+    public void whenFolderNotExistsThenRuntimeException() throws Exception{
         fileSystemUtils = new FileSystemUtils("not_exists_folder");
-        exception.expect(RuntimeException.class);
+        exception.expect(Exception.class);
         fileSystemUtils.dir();
     }
 
     @Test
     public void whenDirThenResultNotNull(){
-        Assert.assertNotNull(fileSystemUtils.dir());
+        List<String> list = Collections.emptyList();
+        try {
+            list = fileSystemUtils.dir();
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        Assert.assertNotNull(list);
     }
 
     @Test
     public void whenDirIsEmptyThenResultEmpty(){
         emptyFolder();
-        Assert.assertEquals(fileSystemUtils.dir().isEmpty(), true);
+        List<String> list = Collections.emptyList();
+        try {
+            list = fileSystemUtils.dir();
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
+        Assert.assertEquals(list.isEmpty(), true);
     }
 
     @Test
     public void whenDirResultis1(){
-        List<String> list = fileSystemUtils.dir();
+        List<String> list = Collections.emptyList();
+        try {
+            list = fileSystemUtils.dir();
+        } catch (Exception e) {
+//            e.printStackTrace();
+        }
         Assert.assertEquals(1, list.size());
     }
 
