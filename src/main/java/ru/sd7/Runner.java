@@ -3,19 +3,18 @@ package ru.sd7;
 import java.util.List;
 import java.util.Scanner;
 
-public class Runner {
+public class Runner implements Runnable {
 
-    private FileSystemUtils fsu;
+    private CachedFileSystemUtils fsu;
 
-    private void run(){
-        fsu = new FileSystemUtils();
+    public void run(){
+        fsu = new CachedFileSystemUtils();
         printDirAndAskNext(readConsoleInput());
     }
 
     private void printDirAndAskNext(String dir) {
-        fsu.setPath(dir);
         try {
-            List<String> files = fsu.dir();
+            List<String> files = fsu.getDir(dir);
             for(String file : files){
                 System.out.println(file);
             }

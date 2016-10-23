@@ -5,8 +5,6 @@ import org.junit.rules.ExpectedException;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
-import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -47,48 +45,30 @@ public class FileSystemUtilsSpec {
     public void whenPathNotExistsThenRuntimeException() throws Exception{
         fileSystemUtils = new FileSystemUtils(null);
         exception.expect(Exception.class);
-        fileSystemUtils.dir();
+        fileSystemUtils.getDir();
     }
 
     @Test
     public void whenFolderNotExistsThenRuntimeException() throws Exception{
         fileSystemUtils = new FileSystemUtils("not_exists_folder");
         exception.expect(Exception.class);
-        fileSystemUtils.dir();
+        fileSystemUtils.getDir();
     }
 
     @Test
-    public void whenDirThenResultNotNull(){
-        List<String> list = Collections.emptyList();
-        try {
-            list = fileSystemUtils.dir();
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-        Assert.assertNotNull(list);
+    public void whenDirThenResultNotNull() throws Exception{
+        Assert.assertNotNull(fileSystemUtils.getDir());
     }
 
     @Test
-    public void whenDirIsEmptyThenResultEmpty(){
+    public void whenDirIsEmptyThenResultEmpty() throws Exception{
         emptyFolder();
-        List<String> list = Collections.emptyList();
-        try {
-            list = fileSystemUtils.dir();
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-        Assert.assertEquals(list.isEmpty(), true);
+        Assert.assertEquals(fileSystemUtils.getDir().isEmpty(), true);
     }
 
     @Test
-    public void whenDirResultis1(){
-        List<String> list = Collections.emptyList();
-        try {
-            list = fileSystemUtils.dir();
-        } catch (Exception e) {
-//            e.printStackTrace();
-        }
-        Assert.assertEquals(1, list.size());
+    public void whenDirResultis1() throws Exception{
+        Assert.assertEquals(1, fileSystemUtils.getDir().size());
     }
 
     private void createFolder() {
