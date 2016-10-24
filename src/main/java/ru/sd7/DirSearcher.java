@@ -27,7 +27,7 @@ class DirSearcher implements Runnable {
                         }
                 }).start();
                 for (int i = 0; i < 100; i++) {
-                    new Thread(new SearchTask(queue, params.keyword)).start();
+                    new Thread(new SearchTask(queue, params.keyword), "Thread "+i).start();
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());

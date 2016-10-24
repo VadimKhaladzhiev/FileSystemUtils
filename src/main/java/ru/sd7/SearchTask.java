@@ -31,7 +31,7 @@ public class SearchTask implements Runnable {
                 lineNumber++;
                 String line = in.nextLine();
                 if(line.contains(keyword)){
-                    System.out.printf("%s:%d:%s%n", file.getPath(), lineNumber , line);
+                    System.out.printf("%12s:   %s:%d:%s%n", Thread.currentThread().getName(), file.getPath(), lineNumber , line);
                 }
             }
         }
