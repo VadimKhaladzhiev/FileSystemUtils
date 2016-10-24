@@ -22,6 +22,8 @@ public class RestService {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(RestService.class, args);
+        SpringApplication app = new SpringApplication(RestService.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
 }
