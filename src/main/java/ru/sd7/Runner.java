@@ -1,37 +1,26 @@
 package ru.sd7;
 
-import java.util.List;
 import java.util.Scanner;
 
-public class Runner implements Runnable {
+public class Runner {
 
-    private CachedFileSystemUtils fsu;
-
-    public void run(){
-        fsu = new CachedFileSystemUtils();
-        printDirAndAskNext(readConsoleInput());
-    }
-
-    private void printDirAndAskNext(String dir) {
-        try {
-            List<String> files = fsu.getDir(dir);
-            for(String file : files){
-                System.out.println(file);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        printDirAndAskNext(readConsoleInput());
-    }
-
-    private String readConsoleInput() {
-        String dir;Scanner scanner = new Scanner(System.in);
-        System.out.println("Dir?");
-        dir = scanner.next();
-        return dir;
-    }
+    private enum Command{explorer, searcher};
 
     public static void main(String[] args) {
-        new Runner().run();
+        Scanner scanner = new Scanner(System.in);
+
+        Command command = ask(scanner);
+
+        if(command==Command.explorer)new DirPrinter().run();
+        else if(command==Command.searcher)new DirSearcher().run();
+    }
+
+    private static Command ask(Scanner scanner) {
+        System.out.println("Explorer or Searcher?");
+        String command = scanner.next();
+        if("explorer".equals(command)) return Command.explorer;
+        else if("searcher".equals(command)) return Command.searcher;
+        else ask(scanner);
+        return null;
     }
 }
