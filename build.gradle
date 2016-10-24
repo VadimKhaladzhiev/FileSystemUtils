@@ -11,11 +11,26 @@ buildscript {
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'jacoco'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
+springBoot {
+    mainClass = "ru.sd7.RestService"
+}
+
+jar {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
+war {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
+
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     mavenCentral()

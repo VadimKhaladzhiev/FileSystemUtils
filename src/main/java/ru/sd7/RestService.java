@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 @RestController
 @EnableAutoConfiguration
@@ -22,8 +23,10 @@ public class RestService {
     }
 
     public static void main(String[] args) throws Exception {
+        HashMap<String, Object> props = new HashMap<>();
+        props.put("server.port", 9999);
         SpringApplication app = new SpringApplication(RestService.class);
-        app.setBannerMode(Banner.Mode.OFF);
+        app.setDefaultProperties(props);
         app.run(args);
     }
 }
