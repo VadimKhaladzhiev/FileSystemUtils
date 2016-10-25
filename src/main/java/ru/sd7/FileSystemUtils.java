@@ -55,6 +55,7 @@ class FileSystemUtils {
                 }
             }
         }
+        Thread.sleep(1);
         return fileList;
     }
 
