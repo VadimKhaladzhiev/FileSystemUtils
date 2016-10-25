@@ -12,7 +12,7 @@ public class Runner {
         Command command = ask(scanner);
 
         if(command==Command.explorer)new DirPrinter().run();
-        else if(command==Command.searcher)new DirSearcher().run();
+        else if(command==Command.searcher)new ConsoleDirSearcher().run();
     }
 
     private static Command ask(Scanner scanner) {

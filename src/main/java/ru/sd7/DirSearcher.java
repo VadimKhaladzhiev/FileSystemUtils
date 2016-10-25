@@ -2,67 +2,57 @@ package ru.sd7;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.*;
 
-class DirSearcher implements Runnable {
+class DirSearcher {
 
     private FileSystemUtils fsu = new FileSystemUtils();
-    private BlockingQueue<File> queue = new ArrayBlockingQueue<>(5);
 
-    public void run(){
-        doNext(readConsoleInput());
+    DirSearcher() {
     }
 
-    private void doNext(Params params) {
-        start(params);
-        doNext(readConsoleInput());
-    }
-
-    public void start(Params params) {
+    List<SearchResult> search(SearchParams params) {
+        List<SearchResult> list = new ArrayList<>();
         File dir = new File(params.dir);
         if(dir.isDirectory()){
+
+            CompletionService<List<SearchResult>> completionService = newCompletionService();
+
+            int taskList = 0;
             try {
-                new Thread(()-> {
-                        try {
-                            fsu.getDirRecursive(dir, queue);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                }).start();
-                for (int i = 0; i < 100; i++) {
-                    new Thread(new SearchTask(queue, params.keyword, params.out), "Thread "+i).start();
-                }
+                taskList = fsu.processDirRecursive(dir, params, completionService);
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
+
+            list = processCompletionList(completionService, taskList);
         }
+        return list;
     }
 
-    static class Params{
-        String dir;
-        String keyword;
-        OutputStream out;
-
-        public Params() {
+    private List<SearchResult> processCompletionList(CompletionService<List<SearchResult>> completionService,
+                                                     int taskList) {
+        List<SearchResult> list = new ArrayList<>();
+        try {
+            for (int i = 0; i < taskList; i++) {
+                Future<List<SearchResult>> fList = completionService.take();
+                list.addAll(fList.get());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        public Params(String dir, String keyword, OutputStream out) {
-            this.dir = dir;
-            this.keyword = keyword;
-            this.out = out;
-        }
+        return list;
     }
 
-    private Params readConsoleInput() {
-        Params params = new Params();
-        params.out=System.out;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Dir?");
-        params.dir = scanner.next();
-        System.out.println("Keyword?");
-        params.keyword = scanner.next();
-        return params;
+    private CompletionService<List<SearchResult>> newCompletionService() {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        ((ThreadPoolExecutor)executor).setMaximumPoolSize(10);
+
+        return new ExecutorCompletionService<>(executor);
     }
+
 }

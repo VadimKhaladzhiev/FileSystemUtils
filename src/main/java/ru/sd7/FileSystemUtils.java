@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.CompletionService;
 
 class FileSystemUtils {
 
@@ -37,12 +37,25 @@ class FileSystemUtils {
         return new ArrayList<>(Arrays.asList(paths));
     }
 
-    void getDirRecursive(File directory, BlockingQueue<File> queue) throws Exception{
+
+    int processDirRecursive(File directory, SearchParams params, CompletionService<List<SearchResult>> completionService) throws Exception{
+        int fileList=0;
         File[] files = directory.listFiles();
         for(File file: files){
-            if(file.isDirectory())getDirRecursive(file, queue);
-            else queue.put(file);
+            if(file.isDirectory()){
+                fileList+=processDirRecursive(file, params, completionService);
+            }
+            else {
+                try {
+                    completionService.submit(new SearchTask(file, params.keyword));
+                    fileList++;
+                } catch (Exception e) {
+                    System.out.println("Exception: "+ e.getMessage());
+                    System.out.println(params.keyword + " " + file.getName());
+                }
+            }
         }
+        return fileList;
     }
 
     private void checkPathAndFolder() throws Exception {
