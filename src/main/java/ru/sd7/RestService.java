@@ -4,7 +4,6 @@ import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -25,10 +24,6 @@ public class RestService {
     }
 
     public static void main(String[] args) throws Exception {
-        HashMap<String, Object> props = new HashMap<>();
-        props.put("server.port", 9999);
-        SpringApplication app = new SpringApplication(RestService.class);
-        app.setDefaultProperties(props);
-        app.run(args);
+        new SpringApplication(RestService.class).run(args);
     }
 }
