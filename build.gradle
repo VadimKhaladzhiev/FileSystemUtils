@@ -17,7 +17,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 
 springBoot {
-    mainClass = "ru.sd7.RestService"
+    mainClass = "ru.sd7.SpringBoot"
 }
 
 jar {

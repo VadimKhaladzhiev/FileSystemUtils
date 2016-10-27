@@ -1,14 +1,16 @@
-package ru.sd7;
+package ru.sd7.utils;
+
+import ru.sd7.core.FileSystemUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class CachedFileSystemUtils {
+public class CachedFileSystemUtils {
     private Map<String, CasheResult> results = new HashMap<>();
     private FileSystemUtils utils = new FileSystemUtils();
 
-    List<String> getDir(String path) throws Exception{
+    public List<String> getDir(String path) throws Exception{
         List<String> result;
         if(results.containsKey(path)){
             result = results.get(path).result;

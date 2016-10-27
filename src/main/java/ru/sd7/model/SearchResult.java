@@ -1,12 +1,12 @@
-package ru.sd7;
+package ru.sd7.model;
 
-class SearchResult {
+public class SearchResult {
     private String threadName;
     private String filePath;
     private Integer lineNumber;
     private String line;
 
-    SearchResult(String threadName, String filePath, Integer lineNumber, String line) {
+    public SearchResult(String threadName, String filePath, Integer lineNumber, String line) {
         this.threadName = threadName;
         this.filePath = filePath;
         this.lineNumber = lineNumber;

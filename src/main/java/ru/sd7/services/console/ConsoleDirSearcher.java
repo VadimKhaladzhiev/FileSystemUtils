@@ -1,11 +1,15 @@
-package ru.sd7;
+package ru.sd7.services.console;
+
+import ru.sd7.core.DirSearcher;
+import ru.sd7.model.SearchParams;
+import ru.sd7.model.SearchResult;
 
 import java.util.List;
 import java.util.Scanner;
 
-class ConsoleDirSearcher extends DirSearcher {
+public class ConsoleDirSearcher extends DirSearcher {
 
-    void run(){
+    public void run(){
         nextQuery(readConsoleInput());
     }
 
@@ -24,9 +28,9 @@ class ConsoleDirSearcher extends DirSearcher {
         SearchParams params = new SearchParams();
         Scanner scanner = new Scanner(System.in);
         System.out.println("Dir?");
-        params.dir = scanner.next();
+        params.setDir(scanner.next());
         System.out.println("Keyword?");
-        params.keyword = scanner.next();
+        params.setKeyword(scanner.next());
         return params;
     }
 }

@@ -1,23 +1,23 @@
-package ru.sd7;
+package ru.sd7.core;
+
+import ru.sd7.model.SearchParams;
+import ru.sd7.model.SearchResult;
 
 import java.io.File;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.concurrent.*;
 
-class DirSearcher {
+public class DirSearcher {
 
     private FileSystemUtils fsu = new FileSystemUtils();
 
-    DirSearcher() {
+    public DirSearcher() {
     }
 
-    List<SearchResult> search(SearchParams params) {
+    public List<SearchResult> search(SearchParams params) {
         List<SearchResult> list = new ArrayList<>();
-        File dir = new File(params.dir);
+        File dir = new File(params.getDir());
         if(dir.isDirectory()){
 
             CompletionService<List<SearchResult>> completionService = newCompletionService();

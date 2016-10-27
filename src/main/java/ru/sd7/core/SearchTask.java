@@ -1,4 +1,6 @@
-package ru.sd7;
+package ru.sd7.core;
+
+import ru.sd7.model.SearchResult;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,12 +10,12 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.Callable;
 
-class SearchTask implements Callable<List<SearchResult>> {
+public class SearchTask implements Callable<List<SearchResult>> {
 
     private File file;
     private String keyword;
 
-    SearchTask(File file, String keyword) {
+    public SearchTask(File file, String keyword) {
         this.file = file;
         this.keyword = keyword;
     }

@@ -1,9 +1,11 @@
-package ru.sd7;
+package ru.sd7.core;
+
+import ru.sd7.utils.CachedFileSystemUtils;
 
 import java.util.List;
 import java.util.Scanner;
 
-class DirPrinter implements Runnable {
+public class DirPrinter implements Runnable {
 
     private CachedFileSystemUtils fsu;
 

@@ -2,6 +2,7 @@ package ru.sd7;
 
 import org.junit.*;
 import org.junit.rules.ExpectedException;
+import ru.sd7.core.FileSystemUtils;
 
 import java.io.File;
 import java.io.IOException;

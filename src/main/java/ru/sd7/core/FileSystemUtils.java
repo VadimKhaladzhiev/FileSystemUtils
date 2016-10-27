@@ -1,4 +1,7 @@
-package ru.sd7;
+package ru.sd7.core;
+
+import ru.sd7.model.SearchParams;
+import ru.sd7.model.SearchResult;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,31 +9,31 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletionService;
 
-class FileSystemUtils {
+public class FileSystemUtils {
 
     private String path;
 
-    FileSystemUtils() {
+    public FileSystemUtils() {
     }
 
-    FileSystemUtils(String path) {
+    public FileSystemUtils(String path) {
         this.path = path;
     }
 
-    private void setPath(String path) {
+    public void setPath(String path) {
         this.path = path;
     }
 
-    String getPath() {
+    public String getPath() {
         return path;
     }
 
-    List<String> getDir(String path) throws Exception{
+    public List<String> getDir(String path) throws Exception{
         setPath(path);
         return getDir();
     }
 
-    List<String> getDir() throws Exception{
+    public List<String> getDir() throws Exception{
         checkPathAndFolder();
         File f = new File(path);
         String[] paths = f.list();
@@ -38,7 +41,7 @@ class FileSystemUtils {
     }
 
 
-    int processDirRecursive(File directory, SearchParams params, CompletionService<List<SearchResult>> completionService) throws Exception{
+    public int processDirRecursive(File directory, SearchParams params, CompletionService<List<SearchResult>> completionService) throws Exception{
         int fileList=0;
         File[] files = directory.listFiles();
         for(File file: files){
@@ -47,11 +50,11 @@ class FileSystemUtils {
             }
             else {
                 try {
-                    completionService.submit(new SearchTask(file, params.keyword));
+                    completionService.submit(new SearchTask(file, params.getKeyword()));
                     fileList++;
                 } catch (Exception e) {
                     System.out.println("Exception: "+ e.getMessage());
-                    System.out.println(params.keyword + " " + file.getName());
+                    System.out.println(params.getKeyword() + " " + file.getName());
                 }
             }
         }

@@ -1,5 +1,8 @@
 package ru.sd7;
 
+import ru.sd7.core.DirPrinter;
+import ru.sd7.services.console.ConsoleDirSearcher;
+
 import java.util.Scanner;
 
 public class Runner {
