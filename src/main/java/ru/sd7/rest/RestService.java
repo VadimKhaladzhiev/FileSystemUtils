@@ -16,7 +16,7 @@ import java.util.List;
 @ImportResource("classpath:applicaitonContext.xml")
 @RestController
 @EnableAutoConfiguration
-public class RestService {
+public class RestService implements RestServiceI{
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -24,14 +24,14 @@ public class RestService {
     SearchService searchService;
 
     @RequestMapping("/list")
-    List<SearchResult> list(@RequestParam(value="dir", defaultValue="src") String name,
+    public List<SearchResult> list(@RequestParam(value="dir", defaultValue="src") String name,
                             @RequestParam(value="keyword", defaultValue="class") String keyword) {
         logger.info("List dir:{} keyword:{}", name, keyword);
         return searchService.list(name, keyword);
     }
 
     @RequestMapping("/count")
-    int count(@RequestParam(value="dir", defaultValue="src") String name,
+    public int count(@RequestParam(value="dir", defaultValue="src") String name,
                             @RequestParam(value="keyword", defaultValue="class") String keyword) {
         logger.info("List dir:{} keyword:{}", name, keyword);
         int count = searchService.count(name, keyword);
