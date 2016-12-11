@@ -4,8 +4,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.web.bind.annotation.*;
 import ru.sd7.services.spring.api.SearchService;
 import ru.sd7.model.SearchResult;
@@ -22,6 +24,11 @@ public class RestService implements RestServiceI{
 
     @Autowired
     SearchService searchService;
+
+    @RequestMapping("/mongo")
+    public String mongo(){
+        return "ok";
+    }
 
     @RequestMapping("/list")
     public List<SearchResult> list(@RequestParam(value="dir", defaultValue="src") String name,

@@ -40,6 +40,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-web"){
         exclude module: 'spring-boot-starter-logging'
     }
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+
     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
     compile("org.springframework.boot:spring-boot-starter-actuator"){
         exclude module: 'spring-boot-starter-logging'
