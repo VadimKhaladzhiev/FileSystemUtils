@@ -6,10 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.*;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
+import ru.sd7.model.User;
 import ru.sd7.services.spring.api.SearchService;
 import ru.sd7.model.SearchResult;
 
+import java.util.Date;
 import java.util.List;
 
 @Configuration
@@ -23,9 +28,22 @@ public class RestService implements RestServiceI{
     @Autowired
     SearchService searchService;
 
+    @Autowired
+    MongoTemplate mongoTemplate;
+
+    @RequestMapping("/mongoAdd")
+    public boolean mongoAdd(){
+        User userA = new User("1000", "apple", 54, new Date());
+        mongoTemplate.save(userA, "tableA");
+        return true;
+    }
+
     @RequestMapping("/mongo")
-    public String mongo(){
-        return "ok";
+    public List<User> mongo(){
+        Query findUserQuery = new Query();
+        findUserQuery.addCriteria(Criteria.where("ic").is("1000"));
+        List<User> list = mongoTemplate.find(findUserQuery, User.class, "tableA");
+        return list;
     }
 
     @RequestMapping("/list")

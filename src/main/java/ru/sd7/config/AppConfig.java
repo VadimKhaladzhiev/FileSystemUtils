@@ -10,13 +10,12 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class AppConfig {
 
     public @Bean
-    Mongo mongoBean() throws Exception {
-        return new MongoClient("localhost");
-    }
-
-    public @Bean
     MongoTemplate mongoTemplate() throws Exception {
-        return new MongoTemplate(mongoBean(), "mydatabase");
+
+        MongoTemplate mongoTemplate =
+                new MongoTemplate(new MongoClient("127.0.0.1"),"yourdb");
+        return mongoTemplate;
+
     }
 
 }
