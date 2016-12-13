@@ -22,6 +22,20 @@ public class ContactRestService {
         return contactService.getAll();
     }
 
+    @RequestMapping(value = "/addExample", method = RequestMethod.GET)
+    public boolean addContact() {
+        Contact contact = new Contact();
+        contact.setId(1L);
+        contact.setEmail("test@test.ru");
+        contact.setName("Tester");
+        contact.setNumber("8-999-7897-234");
+
+        if(contact.getId() == null) contactService.add(contact);
+        else contactService.update(contact);
+
+        return true;
+    }
+
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public boolean addContact(Contact contact) {
         if(contact.getId() == null) contactService.add(contact);

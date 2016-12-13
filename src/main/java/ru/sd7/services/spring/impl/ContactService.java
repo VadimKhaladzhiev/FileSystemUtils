@@ -8,9 +8,6 @@ import ru.sd7.repository.SequenceDao;
 
 import java.util.List;
 
-/**
- * https://habrahabr.ru/post/217391/
- * */
 @Service
 public class ContactService {
 
