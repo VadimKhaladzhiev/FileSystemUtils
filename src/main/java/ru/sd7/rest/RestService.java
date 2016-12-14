@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.sd7.model.User;
+import ru.sd7.services.spring.api.SearchResultService;
 import ru.sd7.services.spring.api.SearchService;
 import ru.sd7.model.SearchResult;
 
@@ -31,6 +32,9 @@ public class RestService implements RestServiceI{
     @Autowired
     MongoTemplate mongoTemplate;
 
+    @Autowired
+    SearchResultService searchResultService;
+
     @RequestMapping("/mongoAdd")
     public boolean mongoAdd(){
         User userA = new User("1000", "apple", 54, new Date());
@@ -50,7 +54,9 @@ public class RestService implements RestServiceI{
     public List<SearchResult> list(@RequestParam(value="dir", defaultValue="src") String name,
                             @RequestParam(value="keyword", defaultValue="class") String keyword) {
         logger.info("List dir:{} keyword:{}", name, keyword);
-        return searchService.list(name, keyword);
+        List<SearchResult> result = searchService.list(name, keyword);
+        searchResultService.insertAll(result);
+        return result;
     }
 
     @RequestMapping("/count")

@@ -51,6 +51,7 @@ public class DirSearcher {
     private CompletionService<List<SearchResult>> newCompletionService() {
         ExecutorService executor = Executors.newCachedThreadPool();
         ((ThreadPoolExecutor)executor).setMaximumPoolSize(10);
+        ((ThreadPoolExecutor)executor).setRejectedExecutionHandler((r, exec) -> exec.submit(r));
 
         return new ExecutorCompletionService<>(executor);
     }
