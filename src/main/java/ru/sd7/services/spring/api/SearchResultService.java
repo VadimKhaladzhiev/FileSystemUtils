@@ -14,6 +14,8 @@ public interface SearchResultService {
 
     SearchResult get(Long id);
 
+    List<SearchResult> getLimit(int limit);
+
     List<SearchResult> getAll();
 
     void remove(Long id);

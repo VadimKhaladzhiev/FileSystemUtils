@@ -31,6 +31,10 @@ public class SearchResultDao {
         return mongoOperations.findAll(SearchResult.class);
     }
 
+    public List<SearchResult> getLimit(int limit) {
+        return mongoOperations.find(new Query().limit(limit), SearchResult.class);
+    }
+
     public void remove(Long id) {
         mongoOperations.remove(Query.query(Criteria.where("id").is(id)), SearchResult.class);
     }

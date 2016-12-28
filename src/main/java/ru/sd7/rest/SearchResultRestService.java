@@ -22,6 +22,11 @@ public class SearchResultRestService {
         return searchResultService.getAll();
     }
 
+    @RequestMapping(value = "/limit", method = RequestMethod.GET)
+    public List<SearchResult> showLimit() {
+        return searchResultService.getLimit(10);
+    }
+
     @RequestMapping(value = "/by_id", method = RequestMethod.GET)
     public SearchResult getById(@RequestParam(required = true) Long id) {
         return searchResultService.get(id);

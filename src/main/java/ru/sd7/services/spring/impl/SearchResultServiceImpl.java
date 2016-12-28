@@ -35,6 +35,10 @@ public class SearchResultServiceImpl implements SearchResultService {
         return searchResultDao.get(id);
     }
 
+    public List<SearchResult> getLimit(int limit) {
+        return searchResultDao.getLimit(limit);
+    }
+
     public List<SearchResult> getAll() {
         return searchResultDao.getAll();
     }
