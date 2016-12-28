@@ -24,7 +24,7 @@ public class SearchResultRestService {
 
     @RequestMapping(value = "/limit", method = RequestMethod.GET)
     public List<SearchResult> showLimit() {
-        return searchResultService.getLimit(10);
+        return searchResultService.getLimit(100);
     }
 
     @RequestMapping(value = "/by_id", method = RequestMethod.GET)
