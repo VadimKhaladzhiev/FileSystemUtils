@@ -5,23 +5,29 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.xml.bind.annotation.*;
 import java.util.Date;
 
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Document(collection = "users")
 public class User {
-
+    @XmlAttribute
     @Id
     private String id;
-
+    @XmlElement
     @Indexed
     private String ic;
-
+    @XmlElement
     private String name;
-
+    @XmlElement
     private int age;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private Date createdDate;
+
+    public User() {
+    }
 
     public User(String ic, String name, int age, Date createdDate) {
         this.ic = ic;

@@ -1,10 +1,7 @@
 package ru.sd7.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.sd7.model.SearchResult;
 import ru.sd7.services.spring.api.SearchResultService;
 
@@ -23,12 +20,17 @@ public class SearchResultRestService {
     }
 
     @RequestMapping(value = "/limit", method = RequestMethod.GET)
-    public List<SearchResult> showLimit() {
-        return searchResultService.getLimit(100);
+    public List<SearchResult> showDefaultLimit(@RequestParam(required = true, defaultValue = "10")  int limit) {
+        return searchResultService.getLimit(limit);
     }
 
-    @RequestMapping(value = "/by_id", method = RequestMethod.GET)
-    public SearchResult getById(@RequestParam(required = true) Long id) {
+    @RequestMapping(value = "/limit/{limit}", method = RequestMethod.GET)
+    public List<SearchResult> showLimit(@PathVariable int limit) {
+        return searchResultService.getLimit(limit);
+    }
+
+    @RequestMapping(value = "/by_id/{id}", method = RequestMethod.GET)
+    public SearchResult getById(@PathVariable Long id) {
         return searchResultService.get(id);
     }
 

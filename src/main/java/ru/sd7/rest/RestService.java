@@ -35,6 +35,12 @@ public class RestService implements RestServiceI{
     @Autowired
     SearchResultService searchResultService;
 
+    @RequestMapping(value = "/getUser", produces = {"application/json", "application/xml"})
+    public User getUser(){
+        User user = new User("1001", "apple", 54, new Date());
+        return user;
+    }
+
     @RequestMapping("/mongoAdd")
     public boolean mongoAdd(){
         User userA = new User("1000", "apple", 54, new Date());
@@ -42,7 +48,7 @@ public class RestService implements RestServiceI{
         return true;
     }
 
-    @RequestMapping("/mongo")
+    @RequestMapping(value = "/mongo")
     public List<User> mongo(){
         Query findUserQuery = new Query();
         findUserQuery.addCriteria(Criteria.where("ic").is("1000"));
@@ -50,7 +56,7 @@ public class RestService implements RestServiceI{
         return list;
     }
 
-    @RequestMapping("/list")
+    @RequestMapping(value = "/list")
     public List<SearchResult> list(@RequestParam(value="dir", defaultValue="src") String name,
                             @RequestParam(value="keyword", defaultValue="class") String keyword) {
         logger.info("List dir:{} keyword:{}", name, keyword);
