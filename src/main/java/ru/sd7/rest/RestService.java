@@ -11,10 +11,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.web.bind.annotation.*;
 import ru.sd7.model.User;
+import ru.sd7.model.UserList;
 import ru.sd7.services.spring.api.SearchResultService;
 import ru.sd7.services.spring.api.SearchService;
 import ru.sd7.model.SearchResult;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +41,14 @@ public class RestService implements RestServiceI{
     public User getUser(){
         User user = new User("1001", "apple", 54, new Date());
         return user;
+    }
+
+    @RequestMapping(value = "/getUserList", produces = {"application/json", "application/xml"})
+    public UserList getUserList(){
+        List<User> list = new ArrayList<>();
+        list.add(new User("1001", "apple", 54, new Date()));
+        list.add(new User("1002", "no apple", 55, new Date()));
+        return new UserList(list);
     }
 
     @RequestMapping("/mongoAdd")
