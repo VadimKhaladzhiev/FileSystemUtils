@@ -1,5 +1,7 @@
 package ru.sd7.services.spring.api;
 
+import org.springframework.data.domain.Pageable;
+import ru.sd7.model.ListVO;
 import ru.sd7.model.SearchResult;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public interface SearchResultService {
 
     SearchResult get(Long id);
 
-    List<SearchResult> getLimit(int limit);
+    ListVO<SearchResult> getLimit(Pageable page);
 
     List<SearchResult> getAll();
 

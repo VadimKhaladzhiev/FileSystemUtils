@@ -1,7 +1,9 @@
 package ru.sd7.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
+import ru.sd7.model.ListVO;
 import ru.sd7.model.SearchResult;
 import ru.sd7.services.spring.api.SearchResultService;
 
@@ -20,13 +22,16 @@ public class SearchResultRestService {
     }
 
     @RequestMapping(value = "/limit", method = RequestMethod.GET)
-    public List<SearchResult> showDefaultLimit(@RequestParam(required = true, defaultValue = "10")  int limit) {
-        return searchResultService.getLimit(limit);
+    public ListVO<SearchResult> showDefaultLimit(
+            @RequestParam(required = true, defaultValue = "0")  int page,
+            @RequestParam(required = true, defaultValue = "10")  int limit
+    ) {
+        return searchResultService.getLimit(new PageRequest(page, limit));
     }
 
     @RequestMapping(value = "/limit/{limit}", method = RequestMethod.GET)
-    public List<SearchResult> showLimit(@PathVariable int limit) {
-        return searchResultService.getLimit(limit);
+    public ListVO<SearchResult> showLimit(@PathVariable int limit) {
+        return searchResultService.getLimit(new PageRequest(0, limit));
     }
 
     @RequestMapping(value = "/by_id/{id}", method = RequestMethod.GET)

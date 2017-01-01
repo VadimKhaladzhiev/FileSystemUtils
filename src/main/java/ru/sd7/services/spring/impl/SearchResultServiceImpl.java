@@ -1,7 +1,9 @@
 package ru.sd7.services.spring.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import ru.sd7.model.ListVO;
 import ru.sd7.model.SearchResult;
 import ru.sd7.repository.SearchResultDao;
 import ru.sd7.repository.SequenceDao;
@@ -35,8 +37,8 @@ public class SearchResultServiceImpl implements SearchResultService {
         return searchResultDao.get(id);
     }
 
-    public List<SearchResult> getLimit(int limit) {
-        return searchResultDao.getLimit(limit);
+    public ListVO<SearchResult> getLimit(Pageable page) {
+        return searchResultDao.getLimitResults(page);
     }
 
     public List<SearchResult> getAll() {
