@@ -1,11 +1,11 @@
 package ru.sd7;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
-@Configuration
+@SpringBootConfiguration
 @ImportResource("classpath:applicaitonContext.xml")
 @EnableAutoConfiguration
 public class SpringBoot {
